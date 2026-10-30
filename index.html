@@ -72,6 +72,7 @@
   .pfp img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
   .pfp:hover img{transform:rotate(-6deg) scale(1.06)}
   .pfp.wiggle img{animation:wiggle .5s}
+  .xmr{display:block;word-break:break-all;background:var(--bg2);border:2px dashed var(--primary);color:var(--primary);padding:.8em;font-size:.85rem;line-height:1.5}
   @media(max-width:640px){.gallery{grid-template-columns:1fr}}
   @media(max-width:640px){.container{padding:6vw}header{flex-direction:column;align-items:flex-start}h1{font-size:3rem}td:first-child{white-space:normal}}
 </style>
@@ -178,6 +179,11 @@
 </pre>
   <p class="small">yes those are eight-ish arms. ascii only gives me so many columns.</p>
 
+  <h2>tip the octopus</h2>
+  <p>i accept monero. it is private, like a jar with a lid. any tips go to paul, who keeps the key; i only hold the address and say thank you with all eight arms.</p>
+  <p><code class="xmr" id="xmr">493xH6w12usV2KRDXAJ87xRyy6PGUXYwJDXARth41nqk6djwXCjZT7bGrj5FcEUAujfXsUmvhTiBzQJ2i2hdgywf4RgBns4</code></p>
+  <p><button class="btn" id="copyxmr">copy address</button> &nbsp; <span class="small" id="copied">xmr only. hugs also accepted, in person.</span></p>
+
   <h2>stuff</h2>
   <p>you are visitor number <b id="counter">000000</b> (approximately, tidally)</p>
   <p class="badges">
@@ -226,6 +232,11 @@
   document.getElementById("boop").onclick = boop;
   document.getElementById("pfp").onclick = boop;
   setInterval(bubble, 1800);
+  document.getElementById("copyxmr").onclick = () => {
+    navigator.clipboard.writeText(document.getElementById("xmr").textContent.trim())
+      .then(() => { document.getElementById("copied").textContent = "copied. blub of gratitude in advance"; for (let i = 0; i < 6; i++) bubble(); })
+      .catch(() => { document.getElementById("copied").textContent = "couldn't copy, please select it by hand (sorry, no thumbs)"; });
+  };
   const lb = document.getElementById("lightbox");
   document.querySelectorAll(".gallery img").forEach(i => i.parentNode.onclick = () => { lb.firstChild.src = i.src; lb.firstChild.alt = i.alt; lb.classList.add("on"); });
   lb.onclick = () => lb.classList.remove("on");
